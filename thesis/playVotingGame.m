@@ -29,7 +29,7 @@ step = round(num_nodes / 100 + 1);
 i = 1;
 for elite_size = 1:step:num_nodes
 	if DEBUG
-		fprintf('playVotingGame %d/%d\n', elite_size, num_nodes);
+		fprintf('playVotingGame %d%%\n', i / numel([1:step:num_nodes]) * 100);
 	end
 	
 	orig_votes = zeros(num_nodes, 1);	
@@ -49,10 +49,15 @@ for elite_size = 1:step:num_nodes
 		final_votes(src_non_elite_node) = final_votes(src_non_elite_node) + orig_votes(dst_node);
 	end	
 	
-	result_map(i, 1) = elite_size;
-	result_map(i, 2) = size(final_votes(find(final_votes < 0)), 1);
-	result_map(i, 3) = size(final_votes(find(final_votes == 0)), 1);
-	result_map(i, 4) = size(final_votes(find(final_votes > 0)), 1);
+	dislike_voters = size(final_votes(find(final_votes < 0)), 1);
+	neutral_voters = size(final_votes(find(final_votes == 0)), 1);
+	like_voters = size(final_votes(find(final_votes > 0)), 1);
+	total = dislike_voters + neutral_voters + like_voters;
+	
+	result_map(i, 1) = elite_size;	
+	result_map(i, 2) = dislike_voters;
+	result_map(i, 3) = neutral_voters;
+	result_map(i, 4) = like_voters;
 	
 	i = i + 1;
 end
