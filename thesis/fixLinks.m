@@ -1,3 +1,7 @@
+%fixes links matrix to be contain consecutive node IDs and
+%so that nodes ids are according to their incoming rank in
+%ascending order (means, the node with highest in-rank is getting
+%id = 1 and so on.
 function links = fixLinks(links)
 
 fprintf('Computing new links (removing gaps in node ids)...\n');

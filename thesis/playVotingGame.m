@@ -15,34 +15,36 @@
 %
 %	links = links matrix where each row is a link and each row  
 %	(source_id, dest_id) indicates an undirected link from source to dest.
+%	elitesize = array containting all elite sizes
+%	numnodes = number of unique nodes in links
 %	
-%	game_result = array where each cell is a mapping between the size of
-%	the elite to the total number of +1 voters at the end of the game.
+%	result_map = matrix of the following format: 
+% 	result_map(:, 1) = elite_size;	
+%	result_map(:, 2) = dislike_voters;
+%	result_map(:, 3) = neutral_voters;
+%	result_map(:, 4) = like_voters;
 %
-function result_map = playVotingGame(links)
+function result_map = playVotingGame(links, elitesize, numnodes)
 
 DEBUG = 1;
 
-%getting the number of nodes in the graph
-num_nodes = numel(unique(links));
-step = round(num_nodes / 100 + 1);
-i = 1;
-for elite_size = 1:step:num_nodes
+for i = 1:numel(elitesize)
 	if DEBUG
-		fprintf('playVotingGame %d%%\n', i / numel([1:step:num_nodes]) * 100);
+		fprintf('playVotingGame %d%%\n', i / numel(elitesize) * 100);
 	end
 	
-	orig_votes = zeros(num_nodes, 1);	
+	elite = elitesize(i);
+	orig_votes = zeros(numnodes, 1);	
 	%we initialize voters of the elite with +1 (like)
-	orig_votes(1:elite_size) = 1;
+	orig_votes(1:elite) = 1;
 	%we initialize other voters with -1 (dislike)
-	orig_votes(elite_size + 1:num_nodes) = -1;
+	orig_votes(elite + 1:numnodes) = -1;
 	final_votes = orig_votes;	
 	
-	links_from_non_elite_nodes = links(find(links(:, 1) > elite_size), :);		
-	%We can eliminate at least part of this for by using histograms on the number
+	links_from_non_elite_nodes = links(find(links(:, 1) > elite), :);		
+	%We can eliminate at least part of this for loop by using histograms on the number
 	%of of time a particular non-elite src node appears and histogram on the number
-	%of times it points to +1,0 and -1 voter.
+	%of times it points to +1, 0 and -1 voter.
 	for l = 1:size(links_from_non_elite_nodes, 1)
 		src_non_elite_node = links_from_non_elite_nodes(l,1);
 		dst_node = links_from_non_elite_nodes(l,2);
@@ -54,10 +56,9 @@ for elite_size = 1:step:num_nodes
 	like_voters = size(final_votes(find(final_votes > 0)), 1);
 	total = dislike_voters + neutral_voters + like_voters;
 	
-	result_map(i, 1) = elite_size;	
+	result_map(i, 1) = elite;	
 	result_map(i, 2) = dislike_voters;
 	result_map(i, 3) = neutral_voters;
 	result_map(i, 4) = like_voters;
-	
-	i = i + 1;
+
 end

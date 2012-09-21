@@ -1,3 +1,11 @@
+%computes nodes matrix out of specified links matrix.
+% links = links matrix where each row is a link and each row  
+%	(source_id, dest_id) indicates an undirected link from source to dest.
+% nodes = matrix of the following format: 
+%   nodes(i, :) = map between old node id to new node data
+% 	nodes(:, 1) = new node id (according to incoming rank);	
+%	nodes(:, 2) = outgoing rank;
+%	nodes(:, 3) = incoming rank;
 function nodes = computeNodes2(links)
 fprintf('Getting unique IDs...\n');
 nodes = unique(links);

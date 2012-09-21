@@ -1,11 +1,11 @@
 #############
 ## Mine
 #############
-*.txt
-*.png
-*.csv
-*.xlsx
+links
+other
+old
 octave-core
+*links-test*
 
 #################
 ## Eclipse
