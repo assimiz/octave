@@ -25,21 +25,28 @@ end
 fprintf('Plotting...\n');
 figure;
 hold on;
-area(proc_results(:, 1), proc_results(:, 4:-1:2));
-plot(proc_results(:, 1), proc_results(:, 1), 'LineWidth', 2, "Color", "w");
 title(substr(strtok(linksfile, '.'), findstr (strtok(linksfile, '.'), '/')(end) + 1));
-if strcmp(axismode, 'linear') == 1
+if strcmp(axismode, 'linear') == 1	
+	area(proc_results(:, 1), proc_results(:, 4:-1:2));
 	xlabel ("elite size (%)");
 	ylabel ("voters (%)");
+	color = "w";
+	legend ("blue: like\ngreen: neutral\nred: dislike\nwhite: initial like voters", "location", "eastoutside");
+	% legend ("blue: like\nred: others\nwhite: initial like voters", "location", "eastoutside");
 	axis([0 100 0 100]);
-elseif strcmp(axismode, 'log') == 1
+elseif strcmp(axismode, 'log') == 1	
+	area(proc_results(:, 1), proc_results(:, 4));
 	xlabel ("elite size (n^x)");
 	ylabel ("voters (n^x)");
+	color = "w";
+	legend ("blue: like\nwhite: initial like voters", "location", "eastoutside");
 else
 	fprintf('ERROR: undefined axismode for result processing. Use either linear or log \n');
 end
 
-legend ("blue: like\ngreen: neutral\nred: dislike\nwhite: initial like voters", "location", "eastoutside");
+plot(proc_results(:, 1), proc_results(:, 1), 'LineWidth', 2, "Color", color);
+
+
 legend("boxon");
 
 % figure_file = strcat(linksfile, '-', axismode, '-results.png');

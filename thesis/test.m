@@ -83,3 +83,6 @@ legend("boxon");
 fprintf('testing majorityVoteSim...\n');
 file = 'links/facebook-links-test.txt';
 result = majorityVoteSim(file, 'linear');
+
+file = 'links/bi-links-test.txt';
+result = majorityVoteSim(file, 'log');
