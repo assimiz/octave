@@ -5,6 +5,7 @@ links
 other
 old
 octave-core
+*.png
 *links-test*
 
 #################
