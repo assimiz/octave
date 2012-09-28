@@ -17,6 +17,8 @@
 %	(source_id, dest_id) indicates an undirected link from source to dest.
 %	elitesize = array containting all elite sizes
 %	numnodes = number of unique nodes in links
+%	elitevote = vote for elite member
+%   commonvote = vote for common member
 %	
 %	result_map = matrix of the following format: 
 % 	result_map(:, 1) = elite_size;	
@@ -24,7 +26,7 @@
 %	result_map(:, 3) = neutral_voters;
 %	result_map(:, 4) = like_voters;
 %
-function result_map = playVotingGame(links, elitesize, numnodes)
+function result_map = playVotingGame(links, elitesize, numnodes, elitevote, commonvote = -1)
 
 DEBUG = 1;
 
@@ -35,10 +37,10 @@ for i = 1:numel(elitesize)
 	
 	elite = elitesize(i);
 	orig_votes = zeros(numnodes, 1);	
-	%we initialize voters of the elite with +1 (like)
-	orig_votes(1:elite) = 1;
-	%we initialize other voters with -1 (dislike)
-	orig_votes(elite + 1:numnodes) = -1;
+	%we initialize voters of the elite
+	orig_votes(1:elite) = elitevote;
+	%we initialize other voters
+	orig_votes(elite + 1:numnodes) = commonvote;
 	final_votes = orig_votes;	
 	
 	links_from_non_elite_nodes = links(find(links(:, 1) > elite), :);		

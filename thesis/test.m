@@ -11,9 +11,9 @@ expected_B = [
     2    4    6    5    7    8    1    1    9   10;
 ]
 if B == expected_B
-	fprintf('PASS PASS PASS PASS PASS PASS PASS\n\n');
+	fprintf('PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS\n\n');
 else
-	fprintf('FAIL FAIL FAIL FAIL FAIL FAIL FAIL\n\n');
+	fprintf('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL\n\n');
 end
 fprintf('testing computeNodes...\n');
 test_links = [1 2; 1 3; 10 11; 2 3; 5 3; 5 2];
@@ -28,9 +28,9 @@ expected_real_nodes = [
   3   0   1;
 ]
 if real_nodes == expected_real_nodes
-	fprintf('PASS PASS PASS PASS PASS PASS PASS\n\n');
+	fprintf('PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS\n\n');
 else
-	fprintf('FAIL FAIL FAIL FAIL FAIL FAIL FAIL\n\n');
+	fprintf('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL\n\n');
 end
 
 fprintf('testing fixLinks...\n');
@@ -45,15 +45,15 @@ expected_real_links = [
 ]
 
 if real_links == expected_real_links
-	fprintf('PASS PASS PASS PASS PASS PASS PASS\n\n');
+	fprintf('PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS\n\n');
 else
-	fprintf('FAIL FAIL FAIL FAIL FAIL FAIL FAIL\n\n');
+	fprintf('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL\n\n');
 end
 
 fprintf('testing playVotingGame...\n');
 links = fixLinks(test_links);
 num_nodes = numel(unique(links));
-result = playVotingGame(links, [1:1:num_nodes], num_nodes)
+result = playVotingGame(links, [1:1:num_nodes], num_nodes, 1)
 expected_result = [
 	4 1 1;
 	2 0 4;
@@ -64,16 +64,16 @@ expected_result = [
 ]
 
 if result(:, 2:4) == expected_result
-	fprintf('PASS PASS PASS PASS PASS PASS PASS\n\n');
+	fprintf('PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS\n\n');
 else
-	fprintf('FAIL FAIL FAIL FAIL FAIL FAIL FAIL\n\n');
+	fprintf('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL\n\n');
 end
 
 fprintf('Plotting...\n');
 %plotting
 figure;
 title ("test plot");
-area(result(:, 2:4));
+area(result(:, 4:-1:2));
 xlabel ("elite size");
 ylabel ("votes");
 legend ("blue: dislike\ngreen: neutral\nred: like", "location", "eastoutside");
@@ -81,8 +81,26 @@ legend("boxon");
 
 
 fprintf('testing majorityVoteSim...\n');
+
+file = 'links/links-test-2.txt';
+result = majorityVoteSim(file, 'linear', 6, 2, -1)
+expected_result = [
+   1   2   2   2
+   2   2   0   4
+   3   0   0   6
+   4   0   0   6
+   5   0   0   6
+   6   0   0   6
+]
+
+if result == expected_result
+	fprintf('PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS\n\n');
+else
+	fprintf('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL\n\n');
+end
+
 file = 'links/facebook-links-test.txt';
-result = majorityVoteSim(file, 'linear');
+result = majorityVoteSim(file, 'linear', 100, 1, -1);
 
 file = 'links/bi-links-test.txt';
-result = majorityVoteSim(file, 'log');
+result = majorityVoteSim(file, 'log', 100, 3);
