@@ -1,5 +1,5 @@
 %creates bidirectional graph file from unidirectional.
-%each row in the bidirectional graph fiule still represnt
+%each row in the bidirectional graph file still represnt
 %a unidirectional edge but it is assured that it will have
 %a UNIQUE entries [x y] and [y x] for every [x y] entry in the
 %unidirectional file. For example, the following unidirectional
@@ -22,7 +22,5 @@
 %
 function createBiGraphFile(filename)
 links = load(filename);
-links = [links; [links(:, 2), links(:, 1)]];
-links = unique(links, 'rows');
-links = sortrows(links, [1 2]);
-dlmwrite(strcat('bi-', filename), links, '\t');
+bilinks = createBiGraph(links);
+dlmwrite(strcat('bi-', filename), bilinks, '\t');

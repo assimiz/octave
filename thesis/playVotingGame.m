@@ -17,8 +17,12 @@
 %	(source_id, dest_id) indicates an undirected link from source to dest.
 %	elitesize = array containting all elite sizes
 %	numnodes = number of unique nodes in links
-%	elitevote = vote for elite member
-%   commonvote = vote for common member
+%	elitepower = vote for elite member
+%   commonpower = vote for common member
+%   rounds = number of rounds
+%   elitemode = 'monopoloy' or 'none'. monopoly means the elite does not play 'fair' - 
+%  it is not changing its vote regardless of the majority. 
+%   
 %	
 %	result_map = matrix of the following format: 
 % 	result_map(:, 1) = elite_size;	
@@ -26,41 +30,67 @@
 %	result_map(:, 3) = neutral_voters;
 %	result_map(:, 4) = like_voters;
 %
-function result_map = playVotingGame(links, elitesize, numnodes, elitevote, commonvote = -1)
+function result_map = playVotingGame(links, elitesize, numnodes, elitepower, commonpower, rounds, elitemode)
 
 DEBUG = 1;
 
+if nargin < 7, elitemode = 'monopoloy'; end
+
+k = 0;
+result_map = zeros(numel(elitesize), 4);
+fprintf('playVotingGame: ');
 for i = 1:numel(elitesize)
-	if DEBUG
-		fprintf('playVotingGame %d%%\n', i / numel(elitesize) * 100);
-	end
-	
 	elite = elitesize(i);
 	orig_votes = zeros(numnodes, 1);	
 	%we initialize voters of the elite
-	orig_votes(1:elite) = elitevote;
+	orig_votes(1:elite) = 1;
 	%we initialize other voters
-	orig_votes(elite + 1:numnodes) = commonvote;
+	orig_votes(elite + 1:numnodes) = -1;
 	final_votes = orig_votes;	
-	
-	links_from_non_elite_nodes = links(find(links(:, 1) > elite), :);		
-	%We can eliminate at least part of this for loop by using histograms on the number
-	%of of time a particular non-elite src node appears and histogram on the number
-	%of times it points to +1, 0 and -1 voter.
-	for l = 1:size(links_from_non_elite_nodes, 1)
-		src_non_elite_node = links_from_non_elite_nodes(l,1);
-		dst_node = links_from_non_elite_nodes(l,2);
-		final_votes(src_non_elite_node) = final_votes(src_non_elite_node) + orig_votes(dst_node);
-	end	
-	
-	dislike_voters = size(final_votes(find(final_votes < 0)), 1);
-	neutral_voters = size(final_votes(find(final_votes == 0)), 1);
-	like_voters = size(final_votes(find(final_votes > 0)), 1);
-	total = dislike_voters + neutral_voters + like_voters;
-	
-	result_map(i, 1) = elite;	
-	result_map(i, 2) = dislike_voters;
-	result_map(i, 3) = neutral_voters;
-	result_map(i, 4) = like_voters;
+	for j = 1: rounds		
+		k = k + 1;
+		if DEBUG
+			fprintf('%d%% ', round(k / (numel(elitesize) * rounds) * 100));
+		end
+		
+		if strcmp(elitemode,'monopoly') == 1
+			links_to_update = links(links(:, 1) > elite, :);					
+		else
+			links_to_update = links;					
+		end
+		%We can eliminate at least part of this for loop by using histograms on the number
+		%of of time a particular non-elite src node appears and histogram on the number
+		%of times it points to +1, 0 and -1 voter.
+		for l = 1:size(links_to_update, 1)
+			src_node = links_to_update(l,1);
+			dst_node = links_to_update(l,2);
+			if dst_node <= elite
+				power = elitepower;
+			else
+				power = commonpower;
+			end
+			final_votes(src_node) = final_votes(src_node) + orig_votes(dst_node) * power;
+		end	
+		
+		dislike_voters = find(final_votes < 0);
+		neutral_voters = find(final_votes == 0);
+		like_voters = find(final_votes > 0);
+		
+		num_dislike_voters = size(dislike_voters, 1);
+		num_neutral_voters = size(neutral_voters, 1);
+		num_like_voters = size(like_voters, 1);
+		total = num_dislike_voters + num_neutral_voters + num_like_voters;
+		
+		result_map(i, 1) = elite;	
+		result_map(i, 2) = num_dislike_voters;
+		result_map(i, 3) = num_neutral_voters;
+		result_map(i, 4) = num_like_voters;
+		
+		final_votes(dislike_voters) = -1;
+		final_votes(neutral_voters) = 0;
+		final_votes(like_voters) = 1;
+		orig_votes = final_votes;
+	end
 
 end
+fprintf('\n');	

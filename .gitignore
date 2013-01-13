@@ -6,6 +6,11 @@ other
 old
 octave-core
 *.png
+*.txt
+*.csv
+*.gif
+*.xlsx
+*.asv
 *links-test*
 
 #################
