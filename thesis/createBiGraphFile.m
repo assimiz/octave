@@ -23,4 +23,4 @@
 function createBiGraphFile(filename)
 links = load(filename);
 bilinks = createBiGraph(links);
-dlmwrite(strcat('bi-', filename), bilinks, '\t');
+dlmwrite(strcat('bi-', filename), bilinks, 'delimiter', '\t', 'precision', '%i');

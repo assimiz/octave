@@ -11,12 +11,13 @@ function winning_points = processResult3Helper( result )
 winning_points = zeros(numel(unique(result(:, 1))), 3);
 prev_elite_power = -1;
 j = 0;
+step = 1 / numel(find(result(:, 1) == 1));
 for i = 1:size(result, 1)
     elite_power = result(i, 1);
     if elite_power ~= prev_elite_power
         prev_elite_power = elite_power;
         j = j + 1;
-        x = 0.1;
+        x = step;
         wining_point_found = 0;
     end
     
@@ -27,7 +28,7 @@ for i = 1:size(result, 1)
         winning_points(j, :) = [elite_power, x, percent_win];
         wining_point_found = 1;
     end
-    x = x + 0.1;    
+    x = x + step;    
 end
 
 end

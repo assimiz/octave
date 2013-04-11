@@ -30,11 +30,16 @@
 %	result_map(:, 3) = neutral_voters;
 %	result_map(:, 4) = like_voters;
 %
-function result_map = playVotingGame(links, elitesize, numnodes, elitepower, commonpower, rounds, elitemode)
+function result_map = playVotingGame(links, elitesize, numnodes, elitepower, commonpower, rounds, reversability)
 
 DEBUG = 1;
 
-if nargin < 7, elitemode = 'monopoloy'; end
+if nargin < 7, reversability = 'revertive'; end
+if ~strcmp(reversability, 'revertive') && ~strcmp(reversability, 'non-revertive')...
+    && ~strcmp(reversability, 'elite-non-revertive')
+    fprintf('Invalid reverability. Use either revertive, non-revertive, elite-non-revertive');
+    return;
+end
 
 k = 0;
 result_map = zeros(numel(elitesize), 4);
@@ -53,9 +58,20 @@ for i = 1:numel(elitesize)
 			fprintf('%d%% ', round(k / (numel(elitesize) * rounds) * 100));
 		end
 		
-		if strcmp(elitemode,'monopoly') == 1
-			links_to_update = links(links(:, 1) > elite, :);					
-		else
+		if strcmp(reversability,'elite-non-revertive') == 1
+            %only elite is not reverting its opinion
+			links_to_update = links(links(:, 1) > elite, :);
+        elseif strcmp(reversability,'non-revertive') == 1
+            %elite is not reverting its opinion
+            %all other not reverting its opinion once converted to elite's
+            %vote.
+            %first we find all nodes which have not changed thier original
+            %vote
+            unchanged_nodes = find(bsxfun(@eq, final_votes, orig_votes));           
+			links_to_update = links(ismember(links(:, 1), unchanged_nodes), :);
+            %then we remove the elite - which should not be updated anyway
+            links_to_update = links_to_update(links_to_update(:, 1) > elite, :);
+        else %revertive
 			links_to_update = links;					
 		end
 		%We can eliminate at least part of this for loop by using histograms on the number

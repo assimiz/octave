@@ -1,5 +1,6 @@
 %runs unit testing.
-clear all; close all; clc
+clear all; 
+close all; clc
 fprintf('testing consecutive...\n');
 A = [
       1      4     10     10      4      7     99      1      7     30;
@@ -176,7 +177,7 @@ result = [];
 for rounds = [1 2 4 8]
 	resultsfilename = strcat(graphname,...
 	'-elite-m^0.5-', axismode, '-' ,num2str(rounds), '-rounds', '', '-results');
-	result = [result; majorityVoteSim2(links, resultsfilename, axismode, elitepower, commonpower, rounds, graphname)];
+	result = [result; majorityVoteSim2(links, resultsfilename, axismode, elitepower, commonpower, rounds, 'elite-non-revertive', graphname)];
 end
 
 expected_result = [
@@ -252,7 +253,7 @@ result = [];
 for rounds = [1 2 4 8]
 	resultsfilename = strcat(graphname,...
 	'-elite-m^0.5-', axismode, '-' ,num2str(rounds), '-rounds', '', '-results');
-	result = [result; majorityVoteSim2(links, resultsfilename, axismode, elitepower, commonpower, rounds, graphname)];
+	result = [result; majorityVoteSim2(links, resultsfilename, axismode, elitepower, commonpower, rounds, 'elite-non-revertive', graphname)];
 end
 
 expected_result = [
@@ -280,5 +281,67 @@ else
 	beep
 	fprintf('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL\n\n');
 end	 
+
+linksfile = 'links/non-reverse-test.txt';
+links = load(linksfile);
+elitesize = 2;
+numnodes = 5;
+elitepower = 1;
+commonpower = 1;
+
+reversability = 'non-revertive';
+rounds = 1;
+result = playVotingGame(links, elitesize, numnodes, elitepower, commonpower, rounds, reversability)
+expected_result = [2 0 0 5];
+if result == expected_result
+	fprintf('PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS\n\n');
+else
+	beep
+	fprintf('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL\n\n');
+end
+
+
+reversability = 'revertive';
+rounds = 1;
+result = playVotingGame(links, elitesize, numnodes, elitepower, commonpower, rounds, reversability)
+expected_result = [2 2 0 3];
+if result == expected_result
+	fprintf('PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS\n\n');
+else
+	beep
+	fprintf('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL\n\n');
+end
+rounds = 2;
+result = playVotingGame(links, elitesize, numnodes, elitepower, commonpower, rounds, reversability)
+expected_result = [2 3 0 2];
+if result == expected_result
+	fprintf('PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS\n\n');
+else
+	beep
+	fprintf('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL\n\n');
+end
+rounds = 3;
+result = playVotingGame(links, elitesize, numnodes, elitepower, commonpower, rounds, reversability)
+expected_result = [2 2 0 3];
+if result == expected_result
+	fprintf('PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS\n\n');
+else
+	beep
+	fprintf('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL\n\n');
+end
+
+
+reversability = 'elite-non-revertive';
+rounds = 1;
+result = playVotingGame(links, elitesize, numnodes, elitepower, commonpower, rounds, reversability)
+expected_result = [2 0 0 5];
+if result == expected_result
+	fprintf('PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS PASS\n\n');
+else
+	beep
+	fprintf('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL\n\n');
+end
+
+
 
 	 
