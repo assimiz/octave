@@ -20,7 +20,8 @@
 %		3	4
 %		4	3]
 %
-function createBiGraphFile(filename)
-links = load(filename);
-bilinks = createBiGraph(links);
-dlmwrite(strcat('bi-', filename), bilinks, 'delimiter', '\t', 'precision', '%i');
+function [bifilename] = createBiGraphFile(filename)
+links = importdata(filename);
+bilinks = createBiGraph(links.data);
+bifilename = strcat('bi-', filename);
+dlmwrite(bifilename, bilinks, 'delimiter', '\t', 'precision', '%i');

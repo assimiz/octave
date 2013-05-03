@@ -1,4 +1,4 @@
-function [] = generateRealBaErCompFigure(...
+function generateRealBaErCompFigure(...
     filename, barabasi_filename, erdos_filename,...
     filename_m_square, barabasi_filename_m_square, erdos_filename_m_square,...
     reversability )
@@ -25,13 +25,16 @@ xlabel (sprintf('elite power\n'));
 title(strcat(getGraphTitleByName(filename), ' - ', reversability), 'FontWeight', 'bold', 'FontSize', 10);
 
 %line
-winning_points = processResult3Helper(load(filename));
+result = load(filename);
+winning_points = [result(:, 1) findExponent(sum((result(:, 3:end)), 2), result(:, 2))];
 plot(winning_points(:, 1), winning_points(:, 2), '-bo');
 
-winning_points = processResult3Helper(load(barabasi_filename));
+result = load(barabasi_filename);
+winning_points = [result(:, 1) findExponent(sum((result(:, 3:end)), 2), result(:, 2))];
 plot(winning_points(:, 1), winning_points(:, 2), '-r.');
 
-winning_points = processResult3Helper(load(erdos_filename));
+result = load(erdos_filename);
+winning_points = [result(:, 1) findExponent(sum((result(:, 3:end)), 2), result(:, 2))];
 p = plot(winning_points(:, 1), winning_points(:, 2), '-gx');
 set(p,'Color',[0.2 0.5 0.3])
 

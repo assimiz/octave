@@ -15,19 +15,19 @@ elseif strfind(lower(filename), 'flickr')
 elseif strfind(lower(filename), 'email')
     title = 'Email';
 elseif strfind(lower(filename), 'cit-hepph')
-    title = 'Citation';
+    title = 'Citations';
 elseif strfind(lower(filename), 'brightkite')
     title = 'Brightkite';
 elseif strfind(lower(filename), 'gowalla')
     title = 'Gowalla';
 elseif strfind(lower(filename), 'wikitalk')
-    title = 'Wikipedia';
+    title = 'Wikitalk';
 elseif strfind(lower(filename), 'dutch')
     title = 'Dutch Admin';
 elseif strfind(lower(filename), 'pgp')
     title = 'PGP Users';
 elseif strfind(lower(filename), 'jazz')
-    title = 'Jazz Musicians';
+    title = 'Jazz Bands';
 elseif strfind(lower(filename), 'polblogs')
     title = 'Political Blogs';
 end

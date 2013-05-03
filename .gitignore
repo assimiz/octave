@@ -11,6 +11,9 @@ octave-core
 *.gif
 *.xlsx
 *.asv
+*.exe
+*.prj
+*.log
 *links-test*
 
 #################
