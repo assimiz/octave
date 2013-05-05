@@ -1,4 +1,4 @@
-function runAsymptoticSim( type, iterations, degrees, nodes )
+function runAsymptoticSim( binsearchfun, type, iterations, degrees, nodes )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -19,7 +19,7 @@ for k = 1:iterations
                 links = importdata(fname);
                 bilinks = createBiGraph(links.data); 
                 resultfileprefix = sprintf('%s_%d_%d', type, num_nodes, avg_degree);
-                majorityVoteBinarySearch(bilinks, resultfileprefix);
+                binsearchfun(bilinks, resultfileprefix);
             end
         end
     end
