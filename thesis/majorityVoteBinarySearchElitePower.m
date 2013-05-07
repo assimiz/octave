@@ -16,7 +16,7 @@ COMMON_POWER = 1;
 
 
 links = fixLinks(links);
-num_edges = size(links, 1) / 2; %2 directed edges are counted as one
+num_edges = size(links, 1) / 2; %two directed edges are counted as one
 num_nodes = size(unique(links), 1);
 ELITE_SIZES = round([...
     num_nodes^.5,...
@@ -35,7 +35,7 @@ for j = 1:numel(REVERSABILITIES)
         step = 8192;
         min_win_result = [-1, -1, -1, -1];
         fprintf('Searching for minimum elite power for size %d...\n\n', elite_size);
-        while step >= 1 && power <= 8192
+        while step >= 0.01 && power <= 8192
             elite_power = power;
             result = playVotingGame(links, elite_size, num_nodes, elite_power, COMMON_POWER, ROUNDS, reversability);
             num_dislike_voters = result(2);

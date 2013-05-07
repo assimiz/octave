@@ -26,7 +26,7 @@ for i = 1:numel(networks)
         getFilesFromFolder( './results-sim3/2/networks/binary_search', network );
     
     [reversible_m_square_filename, elite_non_reversible_m_square_filename] = ...
-        getFilesFromFolder( './results-sim3/2/networks/elite=m^.5', network );
+        getFilesFromFolder( './results-sim3/2/networks/binary_search_elite_power', network );
     
     
     fig = generateReversabilityCompFigure( reversible_filename, ...

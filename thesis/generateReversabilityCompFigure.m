@@ -34,14 +34,14 @@ result = load(elite_non_reversible_filename);
 winning_points = [result(:, 1) findExponent(sum((result(:, 3:end)), 2), result(:, 2))];
 plot(winning_points(:, 1), winning_points(:, 2), '-r.');
 
-winning_point = processResults3Helper2(load(reversible_m_square_filename));
+winning_point = processResults3Helper3(load(reversible_m_square_filename));
 if winning_point(1, 1) > 0
-    plot(winning_point(1, 1), winning_point(1, 2), '-b*');
+    plot(winning_point(1, 1), winning_point(1, 2), '-bo','MarkerSize', 8, 'LineWidth', 2);
 end
 
-winning_point = processResults3Helper2(load(elite_non_reversible_m_square_filename));
+winning_point = processResults3Helper3(load(elite_non_reversible_m_square_filename));
 if winning_point(1, 1) > 0
-    plot(winning_point(1, 1), winning_point(1, 2), '-r*');
+    plot(winning_point(1, 1), winning_point(1, 2), '-r.', 'MarkerSize', 19);
 end
 
 

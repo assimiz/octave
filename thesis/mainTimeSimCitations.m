@@ -15,7 +15,7 @@ for year = years
     cur_nodes = time(time(:, 2) == year, 1);
     nodes = unique([nodes; cur_nodes]);
     fprintf('Running majority vote for %d (N=%d)...\n', year, size(nodes, 1));
-    resultsfilprefix = sprintf('Cit-hepPh-%d_N=%d...\n', year, size(nodes, 1));
+    resultsfilprefix = sprintf('Cit-hepPh-%d_N=%d\n', year, size(nodes, 1));
     links_of_src_nodes = ismember(links(:, 1), nodes);
     links_of_dst_nodes = ismember(links(:, 2), nodes);
     cur_links = links(links_of_src_nodes & links_of_dst_nodes, :);

@@ -3,16 +3,16 @@ close all;
 %clc
 
 networks = {...    
-%     'gowalla',...
-%     'cit-hepph',...
-    'brightkite',
+    'gowalla',...
+    'cit-hepph',...
+    'brightkite'
     };
 
 for i = 1:numel(networks)
     network = networks{i};
     title = network;
     [reversible_filenames, elite_non_reversible_filenames] = ...
-        getFilesFromFolder(sprintf('./results-sim3/4/%s/selected', network), '-');    
+        getFilesFromFolder(sprintf('./results-sim3/4/%s/asymptotic/selected', network), '-');    
     
     generateTimeAnalysisFigure(reversible_filenames, strcat(title, ' reversible'));
     set(gcf, 'color', [1 1 1])
