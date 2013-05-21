@@ -5,5 +5,5 @@ function [] = generateErdosRenyiGraphSNAP( nodes, avgdegree, fname )
 %   degree: degree of each new node
 %   fname: file name to save the graph
 
- system(sprintf('"graphgen.exe" -g:e -n:%d -m:%d -o:%s', nodes, avgdegree * nodes, fname));
+ system(sprintf('"graphgen.exe" -g:e -n:%d -m:%d -o:%s', nodes, round(avgdegree * nodes), fname));
 end

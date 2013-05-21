@@ -1,0 +1,15 @@
+--------
+C:\Users\mizrachi\Documents\GitHub\octave\thesis\graphgen.exe.Err
+Thu May 16 09:42:33 2013
+Execution stopped: IsNode(SrcNId) && IsNode(DstNId) [Reason:'556729250 or 362254771 not a node.'], file c:\users\mizrachi\documents\github\snap-1.10\snap-core\graph.cpp, line 82
+--------
+--------
+C:\Users\mizrachi\Documents\GitHub\octave\thesis\graphgen.exe.Err
+Thu May 16 09:43:02 2013
+Execution stopped: IsNode(SrcNId) && IsNode(DstNId) [Reason:'941440856 or 136955696 not a node.'], file c:\users\mizrachi\documents\github\snap-1.10\snap-core\graph.cpp, line 82
+--------
+--------
+C:\Users\mizrachi\Documents\GitHub\octave\thesis\graphgen.exe.Err
+Thu May 16 09:43:48 2013
+Execution stopped: IsNode(SrcNId) && IsNode(DstNId) [Reason:'925157654 or 1343086498 not a node.'], file c:\users\mizrachi\documents\github\snap-1.10\snap-core\graph.cpp, line 82
+--------

@@ -19,17 +19,16 @@ xlabel (sprintf('n\n'));
 title(fig_title, 'FontWeight', 'bold', 'FontSize', 10);
 
 files = sort(files);
-max_power = 0;
 for i = 1:numel(files)
     file = files{i}
     [~, remain] = strtok(file, '=');
     [str, ~] = strtok(remain, '=');
     [nodes, ~] = strtok(str, '.');
     [nodes, ~] = strtok(nodes, '-');
+    [nodes, ~] = strtok(nodes, '_');
     %aggregating result
     result = load(file);
     winning_points(i, :) = [str2double(nodes) result([1 2 3], 5)']; 
-    max_power = max(result([1 2 3], 5));
 end
 winning_points = sortrows(winning_points, 1);
 plot(winning_points(:, 1), winning_points(:, 2), 'r-x');

@@ -12,14 +12,18 @@ for i = 1:numel(networks)
     network = networks{i};
     title = network;
     [reversible_filenames, elite_non_reversible_filenames] = ...
-        getFilesFromFolder(sprintf('./results-sim3/4/%s/asymptotic', network), '-');    
+        getFilesFromFolder(sprintf('./results-sim3/4/%s/asymptotic_models/barabasi', network), '-'); 
     
-    generateTimeAnalysisFigureMinEliteSize(reversible_filenames, strcat(title, ' reversible'));
+    nodes_edges_map = load(sprintf('./time/%s_nodes_edges_map.txt', network));
+    
+    generateTimeAnalysisFigureMinEliteSize(reversible_filenames,...
+        nodes_edges_map, strcat(title, ' reversible'));
     set(gcf, 'color', [1 1 1])
     I = getframe(gcf);
     imwrite(I.cdata, strcat('min_elite_size_reversible_', network, '.png'));
     
-    generateTimeAnalysisFigureMinEliteSize(elite_non_reversible_filenames, strcat(title, ' elite non-reversible'));
+    generateTimeAnalysisFigureMinEliteSize(elite_non_reversible_filenames,...
+        nodes_edges_map, strcat(title, ' elite non-reversible'));
     set(gcf, 'color', [1 1 1])
     I = getframe(gcf);
     imwrite(I.cdata, strcat('min_elite_size_elite_non_reversible_', network, '.png'));

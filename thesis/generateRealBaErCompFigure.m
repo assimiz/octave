@@ -7,13 +7,13 @@ function generateRealBaErCompFigure(...
 
 figure;
 hold on;
-axis([0 3050 0 1]);
+axis([0 10000 0 1]);
 set(gca, 'Xscale', 'log');
 set(gca, 'YMinorGrid', 'off');
 set(gca,'FontSize', 8);
 set(gca, 'XMinorTick', 'on');
 set(gca, 'XTickMode', 'manual');
-set(gca, 'XTick', [1 2 4 8 16 32 64 128 256 512 1024 2048]);
+set(gca, 'XTick', [1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192]);
 set(gca, 'YTick', (.05:.05:1));
 n = getGraphSizeByName(filename);
 ytick = [0, (n.^(.1:.1:1) / n) * 100];

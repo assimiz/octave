@@ -12,7 +12,7 @@ for i = 1:numel(networks)
     network = networks{i};
     title = network;
     [reversible_filenames, elite_non_reversible_filenames] = ...
-        getFilesFromFolder(sprintf('./results-sim3/4/%s/min_power', network), '-');    
+        getFilesFromFolder(sprintf('./results-sim3/4/%s/min_power_models/barabasi', network), '-');    
     
     generateTimeAnalysisFigureMinPower(reversible_filenames, strcat(title, ' reversible'));
     set(gcf, 'color', [1 1 1])
