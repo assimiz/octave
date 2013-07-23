@@ -1,4 +1,4 @@
-% clear all; 
+clear all; 
 close all;
 %clc
     
@@ -31,10 +31,11 @@ for i = 1:numel(networks)
     
     fig = generateReversabilityCompFigure( reversible_filename, ...
         elite_non_reversible_filename,  reversible_m_square_filename,...
-        elite_non_reversible_m_square_filename);
+        elite_non_reversible_m_square_filename, network);    
     
 %     print(fig, '-dbmp', strcat('reversability_', network, '.bmp'));
     set(gcf, 'color', [1 1 1])
-    I = getframe(gcf);    
-    imwrite(I.cdata, strcat('reversability_', network, '.png'));
+%     I = getframe(gcf);    
+%     imwrite(I.cdata, strcat('reversability_', network, '.png'));
+    saveas(gcf, strcat('reversability_', network, '.pdf'), 'pdf')
 end

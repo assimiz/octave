@@ -20,7 +20,7 @@ files = {
     'C:/Users/mizrachi/Documents/GitHub/octave/thesis/links/bi-release-flickr-links.txt';    
     };
 
-ITERATIONS = 10;
+ITERATIONS = 1;
 
 for j = 1:ITERATIONS
     for i = 1:numel(files);
@@ -41,11 +41,13 @@ for j = 1:ITERATIONS
         generateErdosRenyiGraphSNAP(num_nodes, avg_degree, fname);
         links = importdata(fname);
         bilinks = createBiGraph(links.data);
-        majorityVoteBinarySearch(bilinks, strcat(resultsfilprefix, '_erdos'));
+        majorityVoteBinarySearchElitePower(bilinks, strcat(resultsfilprefix, '_erdos'), 1);
+        majorityVoteBinarySearch(bilinks, strcat(resultsfilprefix, '_erdos'), 1);
         
         generateBarabasiAlbertGraphSNAP(num_nodes, avg_degree, fname);
         links = importdata(fname);
         bilinks = createBiGraph(links.data);
-        majorityVoteBinarySearch(bilinks, strcat(resultsfilprefix, '_barabasi'));
+        majorityVoteBinarySearchElitePower(bilinks, strcat(resultsfilprefix, '_barabasi'), 1);
+        majorityVoteBinarySearch(bilinks, strcat(resultsfilprefix, '_barabasi'), 1);
     end
 end

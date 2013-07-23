@@ -103,7 +103,7 @@ for i = 1:numel(elitesize)
 		result_map(i, 4) = num_like_voters;
 		
 		final_votes(dislike_voters) = -1;
-		final_votes(neutral_voters) = 0;
+		final_votes(neutral_voters) = orig_votes(neutral_voters);
 		final_votes(like_voters) = 1;
 		orig_votes = final_votes;
 	end

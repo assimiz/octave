@@ -127,16 +127,20 @@ function addaxis(varargin)
 
   set(h_ax,'ylim',yl2);
   
-  set(h_ax,'FontSize', 8);
+  set(h_ax,'FontSize', 10);
 %   set(h_ax, 'YTick', ytick);
 %   set(h_ax, 'Yscale', 'log');
 %   set(h_ax, 'YMinorTick', 'on');
 %   set(h_ax, 'YTickMode', 'manual');   
 %   set(h_ax, 'YTickMode', 'manual');
 %   set(h_ax, 'YTickLabelMode', 'manual');
-  cellArray = strcat({''},num2str(ytick.', 3)).'
+  cellArray = strcat({''},num2str(ytick.', 3)).';
+  for k = 1:length(cellArray);
+      str = strtrim(cellArray{k});
+      cellArray{k} = substring(str, 0, min(length(str)-1, 4));
+  end
   set(h_ax, 'YTickLabel', cellArray);
-  ylabel ('elite size (%)');
+  ylabel ('elite size (%)','FontSize', 14);
 
 
 %  rescale all y-values

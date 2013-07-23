@@ -7,7 +7,7 @@ elseif strfind(lower(filename), 'twitter')
 elseif strfind(lower(filename), 'youtube')
     title = 'Youtube';
 elseif strfind(lower(filename), 'slashdot')
-    title = 'Slashdot';
+    title = 'Slashdot2';
 elseif strfind(lower(filename), 'epinions')
     title = 'Epinions';
 elseif strfind(lower(filename), 'flickr')
@@ -16,6 +16,8 @@ elseif strfind(lower(filename), 'email')
     title = 'Email';
 elseif strfind(lower(filename), 'cit-hepph')
     title = 'Citations';
+elseif strfind(lower(filename), 'cithepph')
+    title = 'Citations';    
 elseif strfind(lower(filename), 'brightkite')
     title = 'Brightkite';
 elseif strfind(lower(filename), 'gowalla')
@@ -30,6 +32,10 @@ elseif strfind(lower(filename), 'jazz')
     title = 'Jazz Bands';
 elseif strfind(lower(filename), 'polblogs')
     title = 'Political Blogs';
+elseif strfind(lower(filename), 'enron')
+    title = 'Email';
+elseif strfind(lower(filename), 'wikiconflict')
+    title = 'Wikiusers';
 end
 
 end

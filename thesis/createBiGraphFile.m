@@ -22,6 +22,6 @@
 %
 function [bifilename] = createBiGraphFile(filename)
 links = importdata(filename);
-bilinks = createBiGraph(links.data);
+bilinks = createBiGraph(links);
 bifilename = strcat('bi-', filename);
 dlmwrite(bifilename, bilinks, 'delimiter', '\t', 'precision', '%i');

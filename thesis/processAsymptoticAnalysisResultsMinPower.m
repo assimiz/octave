@@ -1,4 +1,4 @@
-%clear all; 
+clear all; 
 close all;
 %clc
 
@@ -16,27 +16,35 @@ DEGREES = [...
 NODES = [100, 1000, 10000, 100000, 1000000];
 
 MODELS = {...
-    'barabasi',...
-%     'erdos',...
+    'erdos',...
+    'barabasi',...    
     };
 
-for k = 1:numel(MODELS)
+num = round(rand*1000);
+
+figure;
+hold on;
+LINESPEC = {'-', '--'};
+for k = 1:numel(MODELS)    
+    colors = get(gcf,'DefaultAxesColorOrder');
+    colors(8, :) = [1 0.6 0.2];
+    
     for j = 1:numel(DEGREES)
-        
+        color = colors(mod(j, size(colors, 1))+1, :);
         network = sprintf('%s_k=%d', MODELS{k}, DEGREES(j));
         expression = sprintf('%s_%s_%d[_-]', MODELS{k}, '\d+', DEGREES(j));
-        title = sprintf('%s degree=%d', MODELS{k}, DEGREES(j));
         [reversible_filenames, elite_non_reversible_filenames] = ...
             getFilesFromFolderByRegExp( sprintf('./results-sim3/3/%s/binary_search/min_power', MODELS{k}), expression );
         
-        generateAsymptoticAnalysisFigureMinPower(reversible_filenames, strcat(title, ' reversible'));
-        set(gcf, 'color', [1 1 1])
-        I = getframe(gcf);
-        imwrite(I.cdata, strcat('min_power_reversible_', network, '.png'));
-        
-        generateAsymptoticAnalysisFigureMinPower(elite_non_reversible_filenames, strcat(title, ' elite non-reversible'));
-        set(gcf, 'color', [1 1 1])
-        I = getframe(gcf);
-        imwrite(I.cdata, strcat('min_power_elite_non_reversible_', network, '.png'));
+        generateAsymptoticAnalysisFigureMinPower(elite_non_reversible_filenames, color, LINESPEC{k});        
     end
+   
 end
+
+l = legend({'d=2' 'd=4' 'd=8' 'd=16'}, 'Location', 'SouthEast');
+% title('The power of elite over time - Reversible', 'FontWeight', 'bold', 'FontSize', 14);
+text(62000, 1.85, sprintf('solid     - ER\ndashed - PA'), 'EdgeColor', 'black', 'LineWidth', 0.5);
+
+set(gcf, 'color', [1 1 1]);
+saveas(gcf, sprintf('min_power_elite_non_reversible_models_%d.pdf', num), 'pdf');
+

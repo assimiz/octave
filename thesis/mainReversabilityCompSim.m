@@ -5,21 +5,22 @@ close all; clc
 
 %SIMULATION #3
 files = {
-    'links/bi-jazz.txt';    
-%     'links/bi-facebook-links.txt';        
-%     'links/bi-Slashdot0902.txt';
-%     'links/bi-soc-Epinions1.txt';
-%     'links/bi-twitter.txt';
-%     'links/bi-release-youtube-links.txt';
-%     'links/bi-Gowalla_edges.txt';
-%     'links/bi-Brightkite_edges.txt';
-%     'links/bi-Cit-HepPh.txt';
-%     'links/bi-Email-EuAll.txt';
-%     'links/bi-DutchElite.txt';
-%     'links/bi-polblogs.gml.txt';    
-%     'links/bi-PGPgiantcompo.txt';
-%     'links/bi-WikiTalk.txt';    
-%     'links/bi-release-flickr-links.txt';    
+%     'C:/Users/mizrachi/Documents/GitHub/octave/thesis/links/bi-jazz.txt';    
+%     'C:/Users/mizrachi/Documents/GitHub/octave/thesis/links/bi-Email-EuAll.txt';
+%     'C:/Users/mizrachi/Documents/GitHub/octave/thesis/links/bi-DutchElite.txt';
+%     'C:/Users/mizrachi/Documents/GitHub/octave/thesis/links/bi-polblogs.gml.txt';    
+%     'C:/Users/mizrachi/Documents/GitHub/octave/thesis/links/bi-PGPgiantcompo.txt';
+%     'C:/Users/mizrachi/Documents/GitHub/octave/thesis/links/bi-WikiTalk.txt';    
+%     'C:/Users/mizrachi/Documents/GitHub/octave/thesis/links/bi-soc-Epinions1.txt';
+
+%     'C:/Users/mizrachi/Documents/GitHub/octave/thesis/links/bi-facebook-links.txt';        
+%     'C:/Users/mizrachi/Documents/GitHub/octave/thesis/links/bi-Slashdot0902.txt';
+%     'C:/Users/mizrachi/Documents/GitHub/octave/thesis/links/bi-twitter.txt';
+%     'C:/Users/mizrachi/Documents/GitHub/octave/thesis/links/bi-release-youtube-links.txt';
+%     'C:/Users/mizrachi/Documents/GitHub/octave/thesis/links/bi-Gowalla_edges.txt';
+    'C:/Users/mizrachi/Documents/GitHub/octave/thesis/links/bi-Brightkite_edges.txt';
+%     'C:/Users/mizrachi/Documents/GitHub/octave/thesis/links/bi-Cit-HepPh.txt';
+%     'C:/Users/mizrachi/Documents/GitHub/octave/thesis/links/bi-release-flickr-links.txt';    
     };
 
 for i = 1:numel(files);
@@ -33,5 +34,5 @@ for i = 1:numel(files);
         lastindex = lastindex(end);
     end
     resultsfilprefix = substring(strtok(linksfile, '.'), lastindex);
-    majorityVoteBinarySearch(links, resultsfilprefix, 0);
+    majorityVoteBinarySearchElitePower(links, resultsfilprefix, 0);
 end

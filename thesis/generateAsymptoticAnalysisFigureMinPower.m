@@ -1,27 +1,26 @@
-function generateAsymptoticAnalysisFigureMinPower( files, fig_title )
+function generateAsymptoticAnalysisFigureMinPower( files, color, linespec )
 %generateAsymptoticAnalysisFigure generates asymptotic analysis figure
 
 
-figure;
-hold on;
-axis([0 1000000 0 20]);
+% figure;
+% hold on;
+axis([0 1000000 0 15]);
 set(gca, 'Xscale', 'log');
-set(gca,'FontSize', 8);
+set(gca,'FontSize', 10);
 set(gca, 'XMinorTick', 'on');
 set(gca, 'XTickMode', 'manual');
 set(gca, 'XTick', [1 10 100 1000 10000 100000 1000000]);
 %n^x y axis
 % set(gca, 'YTick', (.05:.05:1));
-grid on;
-set(gca, 'XMinorGrid', 'off');
-ylabel ('elite weight');
-xlabel (sprintf('n\n'));
-title(fig_title, 'FontWeight', 'bold', 'FontSize', 10);
+grid off;
+ylabel ('elite influence factor', 'FontSize', 14);
+xlabel ('network size (number of nodes)', 'FontSize', 14);
+% title(fig_title, 'FontWeight', 'bold', 'FontSize', 14);
 
 %collecting results for same (avg.) degree but different file size.
 resultMap = containers.Map;
 for i = 1:numel(files)
-    file = files{i}
+    file = files{i};
     %extracting graph parameters
     [~, remain] = strtok(file, '_');
     [~, remain] = strtok(remain, '_');
@@ -52,11 +51,12 @@ for i = 1:numel(the_keys)
 end
 
 winning_points = sortrows(winning_points, 1);
-plot(winning_points(:, 1), winning_points(:, 2), 'r-x');
-plot(winning_points(:, 1), winning_points(:, 3), 'b-o');
-plot(winning_points(:, 1), winning_points(:, 4), 'm-^');
+% winning_points(:, 1) = (winning_points(:, 1) ./ winning_points(end, 1)) * 100;
+plot(winning_points(:, 1), winning_points(:, 3), linespec, 'Color', color);
+% plot(winning_points(:, 1), winning_points(:, 3), 'b-o');
+% plot(winning_points(:, 1), winning_points(:, 4), 'm-^');
 
-l = legend('$e=\sqrt{n}$', '$e=\sqrt{m}$', '$e=0.1n$');
-set(l,'interpreter','latex')
+% l = legend('$e=\sqrt{n}$', '$e=\sqrt{m}$', '$e=0.1n$');
+% set(l,'interpreter','latex')
 
 
